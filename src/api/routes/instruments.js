@@ -1,13 +1,17 @@
 const {
   postInstruments,
   getInstruments,
+  getInsByID,
+  getAndModifyInstrument,
+  deleteInstrument,
 } = require('../controllers/instruments');
-const Instrument = require('../models/instruments');
 
 const instrumentRoutes = require('express').Router();
 
 instrumentRoutes.post('/', postInstruments);
-instrumentRoutes.post('/', getInstruments);
+instrumentRoutes.get('/', getInstruments);
+instrumentRoutes.get('/:id', getInsByID);
+instrumentRoutes.put('/:id', getAndModifyInstrument);
+instrumentRoutes.delete('/:id', deleteInstrument);
 
 module.exports = instrumentRoutes;
-1;
