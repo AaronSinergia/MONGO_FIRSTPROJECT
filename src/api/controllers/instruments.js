@@ -17,9 +17,9 @@ const postInstruments = async (req, res, next) => {
 // Get all
 const getInstruments = async (req, res, next) => {
   try {
-    const allInstrumentss = await Instrument.find();
+    const oneInstrument = await Instrument.find();
 
-    return res.status(200).json(allInstrumentss);
+    return res.status(200).json(oneInstrument);
   } catch (error) {
     return res.status(400).json('Ha fallado la petición');
   }
@@ -29,13 +29,23 @@ const getInstruments = async (req, res, next) => {
 const getInsByID = async (req, res, next) => {
   const getInsById = req.params.id;
   try {
-    const allInstrumentss = await Instrument.findById(getInsById);
+    const instrumentGettedByID = await Instrument.findById(getInsById);
 
-    if (allInstrumentss) {
-      return res.status(200).json(allInstrumentss);
-    } else {
-      return res.status(404).json('Ha fallado la petición por ID');
-    }
+    return res.status(200).json(instrumentGettedByID);
+  } catch (error) {
+    return res.status(500).json('Ha fallado la petición');
+  }
+};
+
+// Get one instrument by Trademark
+const getInsByTrademark = async (req, res, next) => {
+  const trademark = req.params.trademark;
+  try {
+    const instrumentGettedByTrademark = await Instrument.find({
+      trademark: trademark,
+    });
+
+    return res.status(200).json(instrumentGettedByTrademark);
   } catch (error) {
     return res.status(500).json('Ha fallado la petición');
   }
@@ -76,4 +86,5 @@ module.exports = {
   getInsByID,
   getAndModifyInstrument,
   deleteInstrument,
+  getInsByTrademark,
 };
